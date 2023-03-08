@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: cascadedeletion/infra_actions
+          tags: cascadedeletion/infra_actions:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,7 +57,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-        sudo docker pull cascadedeletion/infra_actions
-        sudo docker stop $(sudo docker ps -a -q)
-        sudo docker run --rm -d -p 5000:5000 cascadedeletion/infra_actions:latest
+          sudo docker pull cascadedeletion/infra_actions:latest
+          sudo docker stop $(sudo docker ps -a -q)
+          sudo docker run --rm -d -p 5000:5000 cascadedeletion/infra_actions:latest
 
